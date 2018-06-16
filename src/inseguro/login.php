@@ -1,4 +1,11 @@
-<?php require_once "inc.header.php"; ?>
+<?php 
+	
+	session_start();
+	session_destroy();
+
+	require_once "inc.header.php"; 
+
+?>
 
 <div class="container">
 	<div class="card card-container">		

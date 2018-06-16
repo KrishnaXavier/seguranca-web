@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php 
+	session_start(); 
+
+	if( ! (isset($_SESSION['nome']) && $_SESSION['nome'] != "" && isset($_SESSION['email']) && $_SESSION['email'] != "") ){
+		header("Location: login.php");
+		die();
+	}
+?>
 
 <?php require_once "inc.header.php"; ?>
 
