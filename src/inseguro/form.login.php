@@ -10,23 +10,29 @@ $senha = $_POST['inputPassword'];
 
 $query = "SELECT nome, email, imagem FROM usuario WHERE email = '$email' AND senha = '$senha' ";
 
-echo "<br> Debug, query: $query <br>";
+debug("Query: " . $query);
 
 $resultado = $con->query($query);
 
 
 if($resultado->rowCount() >= 1){
 
-	var_dump($resultado->fetch(PDO::FETCH_ASSOC));
+	$usuario = $resultado->fetch(PDO::FETCH_ASSOC);
+
+	debug("Resultado: ");	
+	debug(var_dump($usuario));
+
+	session_start();
 	
-	$_SESSION['nome'] 	= $resultado['nome'];
+	$_SESSION['nome'] 	= $usuario['nome'];
 
-	$_SESSION['email'] 	= $resultado['email'];
+	$_SESSION['email'] 	= $usuario['email'];
 
-	$_SESSION['imagem'] = $resultado['imagem'];
+	$_SESSION['imagem'] = $usuario['imagem'];
 
-
-	echo "login";
+	header("Location: perfil.php");
+	
 }else{
-	echo "erro login";
+	
+	header("Location: login.php?status-login=erro");
 }
