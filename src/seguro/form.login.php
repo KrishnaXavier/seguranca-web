@@ -8,16 +8,27 @@ $email = $_POST['inputEmail'];
 
 $senha = $_POST['inputPassword'];
 
-$query = "SELECT nome, email, imagem FROM usuario WHERE email = '$email' AND senha = '$senha' ";
+/* Alterações para segurança web - inicio */
+
+$query = "SELECT nome, email, imagem FROM usuario WHERE email = :email AND senha = :senha ";
+
+$preparar = $con->prepare($query);
+
+$preparar->bindParam(':email', $email);
+
+$preparar->bindParam(':senha', $senha);
+
+$preparar->execute();
+
+/* Alterações para segurança web - fim */
+
 
 debug("Query: " . $query);
 
-$resultado = $con->query($query);
 
+if($preparar->rowCount() >= 1){
 
-if($resultado->rowCount() >= 1){
-
-	$usuario = $resultado->fetch(PDO::FETCH_ASSOC);
+	$usuario = $preparar->fetch(PDO::FETCH_ASSOC);
 
 	debug("Resultado: ");	
 	debug(var_dump($usuario));
