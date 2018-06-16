@@ -30,6 +30,7 @@ if($preparar->rowCount() >= 1){
 
 	$usuario = $preparar->fetch(PDO::FETCH_ASSOC);
 
+
 	debug("Resultado: ");	
 	debug(var_dump($usuario));
 
