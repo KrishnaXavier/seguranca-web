@@ -1,0 +1,5 @@
+login, input senha:
+	texto ' OR 1 #
+
+cadastro, input nome:
+	<script type="text/javascript"> alert("XSS"); </script>
