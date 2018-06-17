@@ -8,7 +8,7 @@ $email = $_POST['inputEmail'];
 
 $senha = $_POST['inputPassword'];
 
-$query = "SELECT nome, email, imagem FROM usuario WHERE email = '$email' AND senha = '$senha' ";
+$query = "SELECT nome, email, imagem, id FROM usuario WHERE email = '$email' AND senha = '$senha' ";
 
 debug("Query: " . $query);
 
@@ -29,6 +29,9 @@ if($resultado->rowCount() >= 1){
 	$_SESSION['email'] 	= $usuario['email'];
 
 	$_SESSION['imagem'] = $usuario['imagem'];
+
+	$_SESSION['id'] = $usuario['id'];
+
 
 	header("Location: perfil.php");
 	
