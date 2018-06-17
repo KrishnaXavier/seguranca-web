@@ -13,11 +13,12 @@ function debug($msg){
 }
 
 function filtro($in){	
-	
+
 	return filter_var($in, FILTER_SANITIZE_STRING);
 
 	/* 
 	* Fontes:
+	* http://php.net/filter.filters
 	* http://www.phpit.com.br/artigos/filtrando-e-validando-dados-no-php-com-filter_var.phpit
 	* http://php.net/manual/en/filter.filters.sanitize.php
 	*/
