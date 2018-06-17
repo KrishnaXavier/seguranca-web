@@ -6,11 +6,12 @@ debug(var_dump($_POST));
 
 var_dump($_FILES['image']);
 
-$nome = $_POST['inputName'];
-$email = $_POST['inputName'];
-$email = $_POST['inputEmail'];
-$senha = $_POST['inputPassword'];
+$nome 	= filtro($_POST['inputName']);
+$email 	= filtro($_POST['inputEmail']);
+$senha 	= filtro($_POST['inputPassword']);
 
+$_FILES['image']['name'] 		= filtro($_FILES['image']['name']);
+$_FILES['image']['tmp_name'] 	= filtro($_FILES['image']['tmp_name']);
 
 date_default_timezone_set("Brazil/East");
 $dir = "upload/";
@@ -20,11 +21,20 @@ move_uploaded_file($_FILES['image']['tmp_name'], $dir.$novoNome);
 
 $imagem = $novoNome;
 
-$query = "INSERT INTO usuario (nome, email, senha, imagem)  VALUES ('$nome', '$email', '$senha', '$imagem')";
+/* Alterações para segurança web - inicio */
+$query = "INSERT INTO usuario (nome, email, senha, imagem)  VALUES (:nome, :email, :senha, :imagem)";
 
-debug("Query: " . $query);
+$preparar = $con->prepare($query);
 
-if($con->query($query)){
+$preparar->bindParam(':nome', $nome);
+
+$preparar->bindParam(':email', $email);
+
+$preparar->bindParam(':senha', $senha);
+
+$preparar->bindParam(':imagem', $imagem);
+
+if($preparar->execute()){
 	header("Location: login.php");
 }else{
 	header("Location: cadastro.php?status-cadastro=erro");
