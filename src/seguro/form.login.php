@@ -10,7 +10,7 @@ $senha = $_POST['inputPassword'];
 
 /* Alterações para segurança web - inicio */
 
-$query = "SELECT nome, email, imagem FROM usuario WHERE email = :email AND senha = :senha ";
+$query = "SELECT nome, email, imagem, id FROM usuario WHERE email = :email AND senha = :senha ";
 
 $preparar = $con->prepare($query);
 
@@ -41,6 +41,8 @@ if($preparar->rowCount() >= 1){
 	$_SESSION['email'] 	= $usuario['email'];
 
 	$_SESSION['imagem'] = $usuario['imagem'];
+
+	$_SESSION['id'] = $usuario['id'];
 
 	header("Location: perfil.php");
 	
