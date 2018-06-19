@@ -13,13 +13,22 @@ $senha 	= filtro($_POST['inputPassword']);
 $_FILES['image']['name'] 		= filtro($_FILES['image']['name']);
 $_FILES['image']['tmp_name'] 	= filtro($_FILES['image']['tmp_name']);
 
-date_default_timezone_set("Brazil/East");
-$dir = "upload/";
-$ext = strtolower(substr($_FILES['image']['name'],-4));
-$novoNome = date("Y.m.d-H.i.s") . $ext;	 
-move_uploaded_file($_FILES['image']['tmp_name'], $dir.$novoNome);
+$tp = getImageSize($_FILES['image']['tmp_name']);
 
-$imagem = $novoNome;
+switch($tp['mime']) {
+	case "image/gif":
+	case "image/jpeg":
+	case "image/png":
+		date_default_timezone_set("Brazil/East");
+		$dir = "upload/";
+		$ext = strtolower(substr($_FILES['image']['name'],-4));
+		$novoNome = date("Y.m.d-H.i.s") . $ext;	 
+		move_uploaded_file($_FILES['image']['tmp_name'], $dir.$novoNome);
+		$imagem = $novoNome;
+		break;
+	default: die("Erro no formato de arquivo");
+		
+}
 
 /* Alterações para segurança web - inicio */
 $query = "INSERT INTO usuario (nome, email, senha, imagem)  VALUES (:nome, :email, :senha, :imagem)";
