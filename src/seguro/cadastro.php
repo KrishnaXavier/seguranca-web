@@ -16,6 +16,8 @@
 			<input name="image" type="file" class="form-control" required>
 
 			<button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Cadastrar</button>
+
+			<?php echo isset($_GET['status-cadastro']) && $_GET['status-cadastro'] == "erro" ? "<h6 style='color: red;'>Erro, por favor tente de novo.</h6>" : "";  ?>
 		</form>		
 	</div>
 </div>

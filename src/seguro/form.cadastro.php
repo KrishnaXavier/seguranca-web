@@ -26,7 +26,9 @@ switch($tp['mime']) {
 		move_uploaded_file($_FILES['image']['tmp_name'], $dir.$novoNome);
 		$imagem = $novoNome;
 		break;
-	default: die("Erro no formato de arquivo");
+	default: 
+	header("Location: cadastro.php?status-cadastro=erro");
+	die("Erro no formato de arquivo");
 		
 }
 
